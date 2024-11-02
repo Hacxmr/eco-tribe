@@ -8,10 +8,10 @@ import PopupChat from './components/PopupChat';
 
 const FeatureCard = ({ icon, title, description }) => (
   <div className="bg-white bg-opacity-90 rounded-2xl p-8 h-full flex flex-col items-center transition-transform duration-300 ease-in-out hover:transform hover:-translate-y-2 hover:shadow-lg">
-    <div className="bg-pink-600 rounded-full p-4 mb-4">
+    <div className="bg-blue-900 rounded-full p-4 mb-4">
       {icon}
     </div>
-    <h3 className="text-lg font-semibold text-green-600 mb-2 text-center">
+    <h3 className="text-lg font-semibold text-blue-400 mb-2 text-center">
       {title}
     </h3>
     <p className="text-gray-600 text-center flex-grow">
@@ -60,13 +60,13 @@ export default function LandingPage() {
       <main className="relative min-h-screen flex flex-col justify-center items-center text-white text-center pt-16 bg-cover bg-center" style={{ backgroundImage: 'url("/images/Health_friend.png")' }}>
         <div className="absolute inset-0 bg-black bg-opacity-40"></div>
         <div className="relative z-10 bg-white bg-opacity-90 backdrop-blur-lg rounded-2xl p-8 shadow-lg">
-          <h2 className="text-4xl font-bold text-green-600">Your Friendly Health Companion</h2>
+          <h2 className="text-4xl font-bold text-blue-500">Your Friendly Styling Companion</h2>
           <p className="text-lg text-gray-800 mb-4">Get caring, reliable health advice anytime, anywhere</p>
           <div className="flex justify-center mt-4 gap-2">
-            <button onClick={handleTryMedFriend} className="bg-orange-500 text-white px-6 py-3 rounded-lg flex items-center">
-              <span className="mr-2">💬</span> Try Med-Friend
+            <button onClick={handleTryMedFriend} className="bg-blue-500 text-white px-6 py-3 rounded-lg flex items-center">
+              <span className="mr-2">💬</span> Try Eco-Tribe
             </button>
-            <button onClick={handleEnterChatRoom} className="border border-green-500 text-green-500 px-6 py-3 rounded-lg">
+            <button onClick={handleEnterChatRoom} className="border border-white-500 bg-blue-500 text-white-500 px-6 py-3 rounded-lg">
               Enter Chat
             </button>
           </div>
@@ -74,7 +74,7 @@ export default function LandingPage() {
       </main>
 
       <section className="py-12 bg-gradient-to-r from-green-100 to-green-200">
-        <h2 className="text-4xl font-bold text-green-600 text-center mb-8">Why Choose Med-Friend?</h2>
+        <h2 className="text-4xl font-bold text-blue-500 text-center mb-8">Why Choose Eco-Vibe Tribe?</h2>
         <div className="flex flex-wrap justify-center gap-4">
           <div className="flex-1 max-w-xs">
             <FeatureCard
