@@ -1,11 +1,12 @@
 // src/app/layout.js
 import { Nunito } from "next/font/google";
+import { ClerkProvider } from '@clerk/nextjs';
 import "./globals.css";
 
 const nunito = Nunito({ 
   subsets: ["latin"],
-  weight: ['400', '700'], // Add any weights you need
-  variable: '--font-nunito', // This creates a CSS variable
+  weight: ['400', '700'],
+  display: 'swap',
 });
 
 export const metadata = {
@@ -15,8 +16,15 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" className={nunito.variable}>
-      <body className={nunito.className}>{children}</body>
-    </html>
+    <ClerkProvider>
+      <html lang="en" suppressHydrationWarning>
+        <body 
+          suppressHydrationWarning 
+          className={`${nunito.className} min-h-screen bg-gradient-to-br from-emerald-50 via-teal-50 to-cyan-50`}
+        >
+          {children}
+        </body>
+      </html>
+    </ClerkProvider>
   );
 }

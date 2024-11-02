@@ -2,6 +2,8 @@
 
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { SignIn, SignUp, UserButton } from "@clerk/nextjs";
+import { useAuth } from "@clerk/nextjs";
 
 export default function Auth({ isLogin: initialIsLogin, onClose }) {
   const [isLogin, setIsLogin] = useState(initialIsLogin);
@@ -89,4 +91,22 @@ export default function Auth({ isLogin: initialIsLogin, onClose }) {
       </form>
     </div>
   );
+}
+
+export function SignInButton() {
+  return <SignIn />;
+}
+
+export function SignUpButton() {
+  return <SignUp />;
+}
+
+export function UserProfileButton() {
+  const { isSignedIn } = useAuth();
+  
+  if (!isSignedIn) {
+    return null;
+  }
+  
+  return <UserButton afterSignOutUrl="/" />;
 }
