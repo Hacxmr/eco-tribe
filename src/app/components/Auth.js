@@ -1,9 +1,6 @@
 "use client";
 
 import React, { useState } from 'react';
-import { Button, TextField, Typography, Box, Tabs, Tab } from '@mui/material';
-import { auth, googleProvider } from '../utils/firebase';
-import { signInWithPopup, createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
 import { useRouter } from 'next/navigation';
 
 export default function Auth({ isLogin: initialIsLogin, onClose }) {
@@ -15,64 +12,61 @@ export default function Auth({ isLogin: initialIsLogin, onClose }) {
   const handleAuth = async (e) => {
     e.preventDefault();
     try {
-      if (isLogin) {
-        await signInWithEmailAndPassword(auth, email, password);
-      } else {
-        await createUserWithEmailAndPassword(auth, email, password);
-      }
+      console.log('Auth attempt with:', { email, password, isLogin });
+      
       onClose();
       router.push('/chat');
     } catch (error) {
       console.error(error);
-      alert(error.message);
-    }
-  };
-
-  const handleGoogleSignIn = async () => {
-    try {
-      await signInWithPopup(auth, googleProvider);
-      onClose();
-      router.push('/chat');
-    } catch (error) {
-      console.error(error);
-      alert(error.message);
+      alert('Authentication failed');
     }
   };
 
   return (
-    <Box>
-      <Typography variant="h5" component="h2" gutterBottom>
+    <div className="p-6">
+      <h2 className="text-2xl font-bold mb-4">
         {isLogin ? 'Login' : 'Sign Up'}
-      </Typography>
-      <Tabs value={isLogin ? 0 : 1} onChange={(_, newValue) => setIsLogin(newValue === 0)} sx={{ mb: 2 }}>
-        <Tab label="Login" />
-        <Tab label="Sign Up" />
-      </Tabs>
-      <form onSubmit={handleAuth}>
-        <TextField
-          fullWidth
-          label="Email"
-          variant="outlined"
-          margin="normal"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
-        <TextField
-          fullWidth
-          label="Password"
-          type="password"
-          variant="outlined"
-          margin="normal"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        <Button fullWidth variant="contained" color="primary" type="submit" sx={{ mt: 2 }}>
+      </h2>
+      <div className="flex space-x-4 mb-6 border-b">
+        <button
+          className={`pb-2 px-4 ${isLogin ? 'border-b-2 border-blue-500' : ''}`}
+          onClick={() => setIsLogin(true)}
+        >
+          Login
+        </button>
+        <button
+          className={`pb-2 px-4 ${!isLogin ? 'border-b-2 border-blue-500' : ''}`}
+          onClick={() => setIsLogin(false)}
+        >
+          Sign Up
+        </button>
+      </div>
+      <form onSubmit={handleAuth} className="space-y-4">
+        <div>
+          <input
+            type="email"
+            placeholder="Email"
+            className="w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+        </div>
+        <div>
+          <input
+            type="password"
+            placeholder="Password"
+            className="w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+        </div>
+        <button
+          type="submit"
+          className="w-full bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 transition-colors"
+        >
           {isLogin ? 'Login' : 'Sign Up'}
-        </Button>
+        </button>
       </form>
-      <Button fullWidth variant="outlined" onClick={handleGoogleSignIn} sx={{ mt: 2 }}>
-        {isLogin ? 'Sign in with Google' : 'Sign Up with Google'}
-      </Button>
-    </Box>
+    </div>
   );
 }
