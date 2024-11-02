@@ -5,20 +5,40 @@ import { useRouter } from 'next/navigation';
 
 export default function Auth({ isLogin: initialIsLogin, onClose }) {
   const [isLogin, setIsLogin] = useState(initialIsLogin);
-  const [email, setEmail] = useState('');
+  const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const router = useRouter();
 
   const handleAuth = async (e) => {
     e.preventDefault();
     try {
-      console.log('Auth attempt with:', { email, password, isLogin });
+      const response = await fetch('/api/auth', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          username,
+          password,
+          isLogin
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Authentication failed');
+      }
+
+      const data = await response.json();
       
-      onClose();
-      router.push('/chat');
+      if (data.success) {
+        onClose();
+        router.push('/chat');
+      } else {
+        throw new Error(data.message || 'Authentication failed');
+      }
     } catch (error) {
       console.error(error);
-      alert('Authentication failed');
+      alert(error.message);
     }
   };
 
@@ -44,11 +64,11 @@ export default function Auth({ isLogin: initialIsLogin, onClose }) {
       <form onSubmit={handleAuth} className="space-y-4">
         <div>
           <input
-            type="email"
-            placeholder="Email"
+            type="text"
+            placeholder="Username"
             className="w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
           />
         </div>
         <div>
