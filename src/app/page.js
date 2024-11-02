@@ -73,7 +73,7 @@ export default function LandingPage() {
         </div>
       </main>
 
-      <section className="py-12 bg-gradient-to-r from-green-100 to-green-200">
+      <section className="py-12 bg-gradient-to-r">
         <h2 className="text-4xl font-bold text-blue-500 text-center mb-8">Why Choose Eco-Vibe Tribe?</h2>
         <div className="flex flex-wrap justify-center gap-4">
           <div className="flex-1 max-w-xs">
