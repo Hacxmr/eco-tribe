@@ -52,8 +52,8 @@ export default function LandingPage() {
           <h1 className="text-xl font-bold text-white">ECOVIBE TRIBE</h1>
         </div>
         <div>
-          <button onClick={() => handleAuthOpen(true)} className="mr-2 text-green-500">Login</button>
-          <button onClick={() => handleAuthOpen(false)} className="bg-green-500 text-white px-4 py-2 rounded">Sign Up</button>
+          <button onClick={() => handleAuthOpen(true)} className="mr-2 text-white-500">Login</button>
+          <button onClick={() => handleAuthOpen(false)} className="bg-blue-500 text-white px-4 py-2 rounded">Sign Up</button>
         </div>
       </header>
 
